@@ -13,38 +13,38 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form id="signup-form">
                 <h1>Create Account</h1>
                 <a href="front.html" class="home-button">Home</a>
 
                 <input type="text" id="name" name="username" placeholder="Username">
                 <input type="email" id="email" name="email" placeholder="Email">
                 <input type="password" id="password" name="password" placeholder="Password">
-                <input type="submit" id="signup" name="signup_submit" value="Sign Up">
+                <button type="submit" id="signup" name="signup_submit">Sign Up</button>
 
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
+            <form id="signin-form">
                 <h1>Sign In</h1>
                 <a href="front.html" class="home-button">Home</a>
 
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                <input type="email" id="signin-email" placeholder="Email">
+                <input type="password" id="signin-password" placeholder="Password">
                 <a href="forget.html">Forget Your Password?</a>
-                <input type="submit" id="signin" name="signin_submit" value="Sign In">
+                <button type="submit" id="signin" name="signin_submit">Sign In</button>
             </form>
         </div>
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
                     <h1>Welcome Back!</h1>
-                    <p>Enter your personal details to use all of site features</p>
+                    <p>Enter your personal details to use all of the site features</p>
                     <button class="hidden" id="login">Sign In</button>
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Hello, Friend!</h1>
-                    <p>Register with your personal details to use all of site features</p>
+                    <p>Register with your personal details to use all of the site features</p>
                     <button class="hidden" id="register">Sign Up</button>
                 </div>
             </div>
@@ -55,10 +55,8 @@
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
         import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -79,37 +77,45 @@
         const database = getDatabase(app);
         const auth = getAuth();
 
-        signup.addEventListener('click', (e) => {
+        const signupForm = document.getElementById('signup-form');
+        const signinForm = document.getElementById('signin-form');
+
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var username = document.getElementById('name').value;
 
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
+            try {
+                const methods = await fetchSignInMethodsForEmail(auth, email);
+
+                if (methods.length > 0) {
+                    // Email already exists
+                    alert('Email is already in use. Please use a different email.');
+                } else {
+                    // Proceed with the sign-up
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     const user = userCredential.user;
 
-                    set(ref(database, 'users/' + user.uid), {
+                    await set(ref(database, 'users/' + user.uid), {
                         username: username,
                         email: email,
-                    })
+                    });
 
                     alert('User Created');
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-
-                    alert(errorMessage);
-                });
+                }
+            } catch (error) {
+                console.error('Error checking email existence:', error);
+                alert('Error during sign-up. Please try again.');
+            }
         });
 
-        signin.addEventListener('click', (e) => {
+        signinForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
+            var email = document.getElementById('signin-email').value;
+            var password = document.getElementById('signin-password').value;
 
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
@@ -133,11 +139,6 @@
                     alert(errorMessage);
                 });
         });
-
-        
-
-
-        // ... (existing code)
     </script>
 
     <script src="script.js"></script>

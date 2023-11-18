@@ -13,131 +13,62 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
-                <h1>Create Account</h1>
-                <a href="front.html" class="home-button">Home</a>
-
-                <input type="text" id="name" name="username" placeholder="Username">
-                <input type="email" id="email" name="email" placeholder="Email">
-                <input type="password" id="password" name="password" placeholder="Password">
-                <input type="submit" id="signup" name="signup_submit" value="Sign Up">
-
-            </form>
+            <!-- Your sign-up form -->
         </div>
         <div class="form-container sign-in">
-            <form>
+            <form id="forget-password-form">
                 <h1>Forget Password</h1>
                 <a href="front.html" class="home-button">Home</a>
 
-                <input type="email" placeholder="Email">
+                <input type="email" id="reset-email" placeholder="Email">
                 
+                <input type="submit" id="reset-password" value="Reset Password">
                 
-                <input type="submit" id="signin" name="signin_submit" value="Reset Password">
+                <!-- Add the sign-in button -->
+                <a href="signpage.html" class="sign-in-button">Sign In</a>
             </form>
         </div>
         <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h1>Welcome Back!</h1>
-                    <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Sign In</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Register with your personal details to use all of site features</p>
-                    <button class="hidden" id="register">Sign Up</button>
-                </div>
-            </div>
+            <!-- Your toggle container -->
         </div>
     </div>
 
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-        import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyDYEQz3BF7HHAYq4OuYAaSBhncFj9oc8AQ",
             authDomain: "calmguard-4affd.firebaseapp.com",
-            databaseURL: "https://calmguard-4affd-default-rtdb.firebaseio.com",
-            projectId: "calmguard-4affd",
-            storageBucket: "calmguard-4affd.appspot.com",
-            messagingSenderId: "647620250169",
-            appId: "1:647620250169:web:8b7a7da6381a0ee6c3dbe8",
-            measurementId: "G-HRCVMKDQBK"
+            // Add other config properties
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const database = getDatabase(app);
         const auth = getAuth();
 
-        signup.addEventListener('click', (e) => {
+        const resetPasswordForm = document.getElementById('forget-password-form');
+
+        resetPasswordForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var username = document.getElementById('name').value;
+            var email = document.getElementById('reset-email').value;
 
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
+            try {
+                // Send a password reset email
+                await sendPasswordResetEmail(auth, email);
 
-                    set(ref(database, 'users/' + user.uid), {
-                        username: username,
-                        email: email,
-                    })
-
-                    alert('User Created');
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-
-                    alert(errorMessage);
-                });
+                // Inform the user that a reset email has been sent
+                alert('Password reset email sent. Check your email inbox.');
+            } catch (error) {
+                // Handle errors (e.g., if the email does not exist)
+                console.error('Error sending reset email:', error);
+                alert('Error sending reset email. Please check the provided email address.');
+            }
         });
-
-        signin.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-
-                    const dt = new Date();
-
-                    update(ref(database, 'users/' + user.uid), {
-                        last_login: dt,
-                    });
-
-                    alert('User Logged In');
-
-                    // Redirect to monitoring.html after successful sign-in
-                    window.location.href = 'monitering.html';
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-
-                    alert(errorMessage);
-                });
-        });
-
-        
-
-
-        // ... (existing code)
     </script>
 
     <script src="script.js"></script>

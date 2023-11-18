@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmGuard - About Us</title>
+    <link rel="stylesheet" href="about2.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a class="logo" href="#">CalmGuard<span>.</span></a>
+            <ul class="menu-links">
+                
+                <li><a href="dash.html">Home</a></li>
+                <li><a href="aboutus2.html">About Us</a></li>
+                <li><a href="logmoni1.html">Demo</a></li>
+            
+                <li class="profile-icon">
+                    <div class="profile-dropdown">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <div class="dropdown-content">
+                            <a href="#">Profile</a>
+                            <a href="#">Settings</a>
+                            <a href="front.html">Logout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="content">
+            <h2> CalmGuard- Your Stress and Strain Sentinal</h2>
+            <p>
+                Our team of students has come up with an innovative project that taps into the power of machine learning and computer vision. Through a webcam, our system can track stress levels and monitor eye strain in real time. The main aim is to tackle the downsides of extended computer use by providing users with personalized insights to handle stress better and reduce eye strain.
+            </p>
+            <button><a href="logmonitoring2.html"> Try Now</button>
+        </div>
+    </section>
+
+    <script>
+        const header = document.querySelector("header");
+        const hamburgerBtn = document.querySelector("#hamburger-btn");
+        const closeMenuBtn = document.querySelector("#close-menu-btn");
+
+        // Toggle mobile menu on hamburger button click
+        hamburgerBtn.addEventListener("click", () => header.classList.toggle("show-mobile-menu"));
+
+        // Close mobile menu on close button click
+        closeMenuBtn.addEventListener("click", () => hamburgerBtn.click());
+
+        import logout from "./logout.js";
+    </script>
+</body>
+</html>

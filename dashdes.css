@@ -38,7 +38,7 @@ header .navbar {
 .navbar .menu-links {
     display: flex;
     list-style: none;
-    gap: 35px;
+    gap: 55px;
 }
 
 .navbar a {
@@ -49,6 +49,43 @@ header .navbar {
 
 .navbar a:hover {
     color: #C06B3E;
+}
+
+.navbar .profile-icon {
+    position: relative;
+}
+
+.profile-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-dropdown .material-symbols-outlined {
+    color: #fff;
+    font-size: 2rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #b41313;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #C06B3E;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .hero-section {
@@ -96,64 +133,6 @@ header .navbar {
 .hero-section .content button:hover {
     color: #fff;
     background: #C06B3E;
-}
-
-/* User Dashboard Section */
-.user-dashboard {
-    height: 100vh;
-    background-color: #f2f2f2;
-    display: flex;
-    align-items: center;
-}
-
-.user-dashboard .content {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-}
-
-.user-dashboard h2 {
-    font-size: 2.5rem;
-    color: #333;
-}
-
-.user-dashboard p {
-    font-weight: 400;
-    color: #666;
-    margin-top: 15px;
-}
-
-.user-dashboard button {
-    background: #C06B3E;
-    color: #fff;
-    padding: 12px 30px;
-    border: none;
-    font-size: 1rem;
-    border-radius: 6px;
-    margin-top: 38px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: 0.2s ease;
-}
-
-.user-dashboard button:hover {
-    background: #fff;
-    color: #C06B3E;
-}
-
-#close-menu-btn {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    cursor: pointer;
-    display: none;
-}
-
-#hamburger-btn {
-    color: #fff;
-    cursor: pointer;
-    display: none;
 }
 
 @media (max-width: 768px) {
@@ -216,17 +195,12 @@ header .navbar {
         padding: 9px 18px;
     }
 
-    /* Adjust styles for the user dashboard in mobile view */
-    .user-dashboard {
-        align-items: flex-start;
-        padding-top: 70px;
+    /* Adjust styles for the profile dropdown in mobile view */
+    .navbar .profile-icon {
+        margin-right: 10px;
     }
 
-    .user-dashboard h2 {
-        font-size: 2rem;
-    }
-
-    .user-dashboard button {
-        padding: 9px 18px;
+    .dropdown-content {
+        width: 150px;
     }
 }

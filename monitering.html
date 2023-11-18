@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,3 +35,41 @@
 </body>
 
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="camstyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Monitoring</title>
+</head>
+
+<body>
+    <div id="video-container">
+        <video id="video" playsinline autoplay></video>
+    </div>
+    <div style="text-align: center;">
+        <button id="start-monitoring-btn">Start Monitoring</button>
+        <button id="stop-monitoring-btn">Stop Monitoring</button>
+        <button id="home-btn">Home</button>
+        <div id="timer">00:00</div>
+        <div id="elapsed-time"></div>
+    </div>
+
+    <!-- Modal for Terms and Conditions -->
+    <div id="modal">
+        <div id="modal-content">
+            <h2>Terms and Conditions</h2>
+            <p>By clicking "Start Monitoring," you agree to the terms and conditions regarding video monitoring.</p>
+            <input type="checkbox" id="agree-checkbox"> I agree to the terms and conditions
+            <button id="agree-btn">Continue</button>
+        </div>
+    </div>
+
+    <script src="camscript.js"></script>
+</body>
+
+</html>
+>>>>>>> ba9593c1a3208877e342cd24d6d98883211db89b

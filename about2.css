@@ -1,0 +1,58 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 20px; /* Increased padding for the navigation bar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline;
+    margin-left: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 15px; /* Added padding to the buttons */
+    border-radius: 5px; /* Added rounded corners */
+    background-color: #000000; /* Background color for buttons */
+    transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+a:hover {
+    background-color: #479483; /* Darker background color on hover */
+}
+
+.content {
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    color: #000000;
+}
+
+p {
+    color: #000000;
+}
